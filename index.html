@@ -243,6 +243,94 @@
     body.cv-open .cvpages { display: block; overflow: visible; padding: 0; }
     body.cv-open .cvpages img { max-width: 100%; box-shadow: none; border-radius: 0; page-break-after: always; break-after: page; }
   }
+  /* ===== Design pass 2026-11-27: one type scale, one spacing scale, mobile layout ===== */
+  :root { --fs-body: 16px; --fs-sm: 14px; --fs-lead: 17px; --sec: 64px; --head-gap: 24px; --pad: 22px; --gap: 16px; }
+  body { font-size: var(--fs-body); line-height: 1.75; }
+  html[lang="en"] body { line-height: 1.6; }
+  section { padding-top: var(--sec); }
+  .sec-head { margin-bottom: var(--head-gap); }
+  h2 { font-size: 28px; }
+  h1 { font-size: clamp(36px, 5vw, 50px); }
+  .role { font-size: 19px; }
+  .lead, .goal p.t { font-size: var(--fs-lead); line-height: 1.8; }
+  html[lang="en"] .lead, html[lang="en"] .goal p.t { line-height: 1.65; }
+  .about-grid p, .narr p, .checks li, .card p, .sys p, .job ul, .panel p, .panel .big, .certs li, .link b { font-size: var(--fs-body); line-height: inherit; }
+  .about-grid p, .narr p, .goal p.t { max-width: 68ch; }
+  .eyebrow, .kicker, .strip .it, .certs .org, .job .date, .chip, .note, label, .link small, footer { font-size: var(--fs-sm); }
+  .card h3, .sys h3, .panel h3, .panel-title { font-size: 17px; }
+  .job h3 { font-size: 19px; }
+  .card, .panel, .sys { padding: var(--pad); }
+  .job { padding: var(--pad) calc(var(--pad) + 4px); }
+  .grid, .syslist, .jobs, .three { gap: var(--gap); }
+  .panel.wide { margin-top: var(--gap); }
+  .chips { margin-top: var(--head-gap); }
+  .job li { margin-bottom: 4px; }
+  .contact { margin-top: var(--sec); padding: var(--sec) 0; }
+  .strip b { font-size: 19px; }
+  /* certificates: first 6, then "show all" */
+  #certsPanel:not(.all) .certs li:nth-child(n+7) { display: none; }
+  .more { margin-top: 14px; font: inherit; font-size: var(--fs-sm); font-weight: 700; color: var(--accent); background: none; border: 1.5px solid var(--line); border-radius: 99px; padding: 6px 18px; cursor: pointer; }
+  .more:hover { border-color: var(--accent); }
+  .more:focus-visible, .menu-btn:focus-visible, .card:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+  .menu-btn { display: none; }
+
+  @media (max-width: 860px) {
+    :root { --fs-body: 15px; --fs-sm: 13px; --fs-lead: 15.5px; --sec: 40px; --head-gap: 18px; --pad: 16px; --gap: 12px; }
+    body { line-height: 1.7; }
+    h2 { font-size: 22px; }
+    .card h3, .sys h3, .panel h3, .panel-title { font-size: 16px; }
+    .job h3 { font-size: 16.5px; }
+    .kicker { margin-bottom: 2px; }
+    .rule { margin-top: 8px; }
+    /* header: menu button instead of a cut-off link row */
+    header.nav .wrap { position: relative; height: 56px; }
+    .menu-btn { display: grid; place-items: center; width: 40px; height: 40px; border-radius: 10px; border: 1.5px solid rgba(255,255,255,.3); background: transparent; color: #fff; font-size: 20px; cursor: pointer; flex-shrink: 0; }
+    .navr { flex: 0 0 auto; gap: 10px; }
+    header.nav nav { display: none; position: absolute; top: 100%; inset-inline: 0; flex-direction: column; gap: 0; padding: 6px 16px 12px; background: var(--navy); border-bottom: 1px solid rgba(255,255,255,.12); box-shadow: 0 12px 24px rgba(0,0,0,.3); }
+    header.nav.open nav { display: flex; }
+    header.nav nav a { padding: 12px 4px; font-size: 15px; border-bottom: 1px solid rgba(255,255,255,.08); }
+    header.nav nav a:last-child { border-bottom: 0; }
+    /* hero: small photo beside the name */
+    .hero .wrap { grid-template-columns: 92px 1fr; column-gap: 16px; row-gap: 0; align-items: center; padding-top: 24px; padding-bottom: 28px; justify-items: stretch; }
+    .hero > .wrap > div:last-child { display: contents; }
+    .hero > .wrap, [dir="ltr"] .hero > .wrap { grid-template-columns: 92px 1fr; }
+    .portrait { width: 92px; grid-column: 1; grid-row: 1 / span 3; align-self: start; }
+    .portrait img { height: auto; border-radius: 14px; box-shadow: 0 8px 20px rgba(0,0,0,.3); }
+    .portrait::after { display: none; }
+    .eyebrow, .hero h1, .role { grid-column: 2; }
+    .eyebrow { margin: 0 0 4px; font-size: 12px; }
+    .hero h1 { font-size: 24px; line-height: 1.25; }
+    .role { font-size: 14.5px; margin-top: 4px; }
+    .lead, .cta { grid-column: 1 / -1; }
+    .lead { margin-top: 16px; }
+    .cta { margin-top: 18px; gap: 8px; }
+    .cta > .btn, .cta > .cvwrap { flex: 1 1 calc(50% - 4px); }
+    .cta .btn { padding: 10px 12px; font-size: 14.5px; }
+    .cvwrap .btn { width: 100%; }
+    /* stats: 2x2 small boxes */
+    .hero .strip .wrap { grid-template-columns: 1fr 1fr; gap: 8px; padding-top: 12px; padding-bottom: 12px; }
+    .strip .it { padding: 10px 12px; border: 0; background: rgba(255,255,255,.05); border-radius: 10px; font-size: 12px; line-height: 1.45; }
+    .strip .it:first-child { padding-inline-start: 12px; }
+    .strip b, html[lang="en"] .strip b { font-size: 15px; }
+    /* expertise cards: title only, tap to open */
+    .card { display: grid; grid-template-columns: 34px 1fr 18px; align-items: center; column-gap: 12px; padding: 12px 14px; cursor: pointer; }
+    .card .ic { width: 34px; height: 34px; font-size: 17px; border-radius: 10px; }
+    .card h3 { margin: 0; }
+    .card::after { content: "▾"; color: var(--ink-soft); font-size: 14px; text-align: center; transition: transform .2s; }
+    .card.open::after { transform: rotate(180deg); }
+    .card p { grid-column: 1 / -1; display: none; margin-top: 10px; }
+    .card.open p { display: block; }
+    /* jobs */
+    .who { gap: 10px; }
+    .logo { width: 112px; height: 42px; }
+    .job .date { font-size: 12.5px; }
+    .goal { padding: 22px 18px; }
+    .checks { padding: 4px 16px; }
+    .checks li { padding-top: 9px; padding-bottom: 9px; }
+    .checks li::before { top: 10px; }
+    .link { padding: 12px 14px; }
+    .link .ic { width: 40px; height: 40px; }
+  }
 </style>
 </head>
 <body>
@@ -251,7 +339,8 @@
   <div class="wrap">
     <a class="brand" href="#top"><b><i class="dot"></i><span class="ar">هتان سامي بالطيور</span><span class="en">Hatan Sami Battoyor</span></b><small><span class="ar">مساعد مدير إدارة الائتمان (العمليات)</span><span class="en">Assistant Manager – Credit Administration (Operations)</span></small></a>
     <div class="navr">
-      <nav><a href="#about"><span class="ar">نبذة</span><span class="en">About</span></a><a href="#goal"><span class="ar">الهدف</span><span class="en">Objective</span></a><a href="#skills"><span class="ar">الخبرات</span><span class="en">Expertise</span></a><a href="#systems"><span class="ar">تطوير العمليات</span><span class="en">Operations</span></a><a href="#experience"><span class="ar">المسيرة</span><span class="en">Experience</span></a><a href="#education"><span class="ar">المؤهلات</span><span class="en">Education</span></a><a href="#contact"><span class="ar">تواصل</span><span class="en">Contact</span></a></nav>
+      <nav id="siteNav"><a href="#about"><span class="ar">نبذة</span><span class="en">About</span></a><a href="#goal"><span class="ar">الهدف</span><span class="en">Objective</span></a><a href="#skills"><span class="ar">الخبرات</span><span class="en">Expertise</span></a><a href="#systems"><span class="ar">تطوير العمليات</span><span class="en">Operations</span></a><a href="#experience"><span class="ar">المسيرة</span><span class="en">Experience</span></a><a href="#education"><span class="ar">المؤهلات</span><span class="en">Education</span></a><a href="#contact"><span class="ar">تواصل</span><span class="en">Contact</span></a></nav>
+      <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="siteNav" aria-label="القائمة / Menu">☰</button>
       <button class="lang" id="langBtn" type="button" aria-label="Language / اللغة"><span class="ar">English</span><span class="en">العربية</span></button>
     </div>
   </div>
@@ -330,7 +419,7 @@
       <div class="panel"><h3><span class="ar">المؤهل الأكاديمي</span><span class="en">Education</span></h3><div class="deg"><p class="big"><span class="ar">بكالوريوس المحاسبة</span><span class="en">Bachelor’s Degree in Accounting</span></p><span class="y"><span class="ar">٢٠٢٠</span><span class="en">2020</span></span></div><p><span class="ar">جامعة الإمام محمد بن سعود الإسلامية – كلية الشريعة والدراسات الإسلامية بالأحساء</span><span class="en">Imam Mohammad Ibn Saud Islamic University – College of Shari'ah and Islamic Studies in Al-Ahsa</span></p><p class="gpa"><span class="ar">التقدير: جيد جدًا</span><span class="en">Grade: Very Good</span></p></div>
       <div class="panel"><h3><span class="ar">اللغات</span><span class="en">Languages</span></h3><p class="big"><span class="ar">العربية</span><span class="en">Arabic</span></p><p><span class="ar">اللغة الأم</span><span class="en">Native</span></p><p class="big" style="margin-top:12px"><span class="ar">الإنجليزية</span><span class="en">English</span></p><p><span class="ar">مستوى متوسط</span><span class="en">Intermediate</span></p></div>
     </div>
-    <div class="panel wide"><h3><span class="ar">الشهادات والدورات</span><span class="en">Certifications &amp; Courses</span></h3><ul class="certs cols"><li><span><span class="ar">حوكمة البيانات</span><span class="en">Data Governance</span><small class="org"><span class="ar">معهد أكاديمية الحوكمة للتدريب</span><span class="en">Governance Academy Training Institute</span></small></span><span class="y"><span class="ar">٢٠٢٤</span><span class="en">2024</span></span></li><li><span><span class="ar">الاختبار المهني للمستشار الائتماني – النسخة الرابعة</span><span class="en">Credit Adviser Professional Exam – Fourth Edition</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">ورشة عمل المرابحة</span><span class="en">Murabaha Workshop</span><small class="org"><span class="ar">دار المراجعة الشرعية</span><span class="en">Shariyah Review Bureau</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">البرنامج التحضيري للاختبار المهني للمستشار الائتماني – النسخة الرابعة</span><span class="en">Preparation Program for Credit Advisor Professional Exam – 4th Edition</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">البرنامج التطويري في مهارات الإكسل</span><span class="en">Excel Skills Development Program</span><small class="org"><span class="ar">معهد قمم الرواد العالمية للتدريب</span><span class="en">Qmm Alrowad Training Institute</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">مقدمة في مكافحة غسل الأموال وتمويل الإرهاب لموظفي العمليات المساندة</span><span class="en">Introduction to AML &amp; CTF for Back Office Staff</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٢</span><span class="en">2022</span></span></li><li><span><span class="ar">برنامج اللغة الإنجليزية (240 ساعة) – تقدير A (90%)</span><span class="en">English Language Program (240 Hours) – Grade A (90%)</span><small class="org"><span class="ar">معهد التعليم الحديث للغات</span><span class="en">Modern Education Institute of English</span></small></span><span class="y"><span class="ar">٢٠٢٢</span><span class="en">2022</span></span></li><li><span><span class="ar">ندوة إلكترونية للتوعية بالأمن السيبراني</span><span class="en">Cybersecurity Awareness Webinar</span><small class="org"><span class="ar">صحارى نت / شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Sahara Net / Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢١</span><span class="en">2021</span></span></li><li><span><span class="ar">مكافحة غسل الأموال وتمويل الإرهاب</span><span class="en">Anti-Money Laundering and Terrorist Financing</span><small class="org"><span class="ar">ياسر عبدالعزيز الطائفي للاستشارات المالية / شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Yasser Altaifi Financial Consulting / Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢١</span><span class="en">2021</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – التسوية الجردية وإعداد القوائم المالية</span><span class="en">Principles of Financial Accounting – Adjustments Entries and Financial Statements Preparation</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – الدورة المحاسبية</span><span class="en">Principles of Financial Accounting – Accounting Cycle</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – الإطار العام للمحاسبة</span><span class="en">Principles of Financial Accounting – Accounting Framework</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">العمل ضمن الفرق المتنوعة</span><span class="en">Working with Diverse Teams</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مهارات التواصل في العمل عن بعد</span><span class="en">Communication Skills for Telework</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">اتجاهات سوق التأمين</span><span class="en">Insurance Market</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">إدارة الوقت</span><span class="en">Time Management</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">إدارة الضغوط في العمل</span><span class="en">Stress Management in the Workplace</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">أتقن برنامج مايكروسوفت إكسل 2013</span><span class="en">Master Microsoft Excel 2013</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">ريالي</span><span class="en">Riyali</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مقدمة في برنامج مايكروسوفت أوتلوك</span><span class="en">Introduction in Microsoft Outlook</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li></ul></div>
+    <div class="panel wide" id="certsPanel"><h3><span class="ar">الشهادات والدورات</span><span class="en">Certifications &amp; Courses</span></h3><ul class="certs cols"><li><span><span class="ar">حوكمة البيانات</span><span class="en">Data Governance</span><small class="org"><span class="ar">معهد أكاديمية الحوكمة للتدريب</span><span class="en">Governance Academy Training Institute</span></small></span><span class="y"><span class="ar">٢٠٢٤</span><span class="en">2024</span></span></li><li><span><span class="ar">الاختبار المهني للمستشار الائتماني – النسخة الرابعة</span><span class="en">Credit Adviser Professional Exam – Fourth Edition</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">ورشة عمل المرابحة</span><span class="en">Murabaha Workshop</span><small class="org"><span class="ar">دار المراجعة الشرعية</span><span class="en">Shariyah Review Bureau</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">البرنامج التحضيري للاختبار المهني للمستشار الائتماني – النسخة الرابعة</span><span class="en">Preparation Program for Credit Advisor Professional Exam – 4th Edition</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">البرنامج التطويري في مهارات الإكسل</span><span class="en">Excel Skills Development Program</span><small class="org"><span class="ar">معهد قمم الرواد العالمية للتدريب</span><span class="en">Qmm Alrowad Training Institute</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">مقدمة في مكافحة غسل الأموال وتمويل الإرهاب لموظفي العمليات المساندة</span><span class="en">Introduction to AML &amp; CTF for Back Office Staff</span><small class="org"><span class="ar">الأكاديمية المالية</span><span class="en">The Financial Academy</span></small></span><span class="y"><span class="ar">٢٠٢٢</span><span class="en">2022</span></span></li><li><span><span class="ar">برنامج اللغة الإنجليزية (240 ساعة) – تقدير A (90%)</span><span class="en">English Language Program (240 Hours) – Grade A (90%)</span><small class="org"><span class="ar">معهد التعليم الحديث للغات</span><span class="en">Modern Education Institute of English</span></small></span><span class="y"><span class="ar">٢٠٢٢</span><span class="en">2022</span></span></li><li><span><span class="ar">ندوة إلكترونية للتوعية بالأمن السيبراني</span><span class="en">Cybersecurity Awareness Webinar</span><small class="org"><span class="ar">صحارى نت / شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Sahara Net / Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢١</span><span class="en">2021</span></span></li><li><span><span class="ar">مكافحة غسل الأموال وتمويل الإرهاب</span><span class="en">Anti-Money Laundering and Terrorist Financing</span><small class="org"><span class="ar">ياسر عبدالعزيز الطائفي للاستشارات المالية / شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Yasser Altaifi Financial Consulting / Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢١</span><span class="en">2021</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – التسوية الجردية وإعداد القوائم المالية</span><span class="en">Principles of Financial Accounting – Adjustments Entries and Financial Statements Preparation</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – الدورة المحاسبية</span><span class="en">Principles of Financial Accounting – Accounting Cycle</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مبادئ المحاسبة المالية – الإطار العام للمحاسبة</span><span class="en">Principles of Financial Accounting – Accounting Framework</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية / الهيئة السعودية للمحاسبين القانونيين</span><span class="en">Doroob – Human Resources Development Fund / SOCPA</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">العمل ضمن الفرق المتنوعة</span><span class="en">Working with Diverse Teams</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مهارات التواصل في العمل عن بعد</span><span class="en">Communication Skills for Telework</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">اتجاهات سوق التأمين</span><span class="en">Insurance Market</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">إدارة الوقت</span><span class="en">Time Management</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">إدارة الضغوط في العمل</span><span class="en">Stress Management in the Workplace</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">أتقن برنامج مايكروسوفت إكسل 2013</span><span class="en">Master Microsoft Excel 2013</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">ريالي</span><span class="en">Riyali</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li><li><span><span class="ar">مقدمة في برنامج مايكروسوفت أوتلوك</span><span class="en">Introduction in Microsoft Outlook</span><small class="org"><span class="ar">دروب – صندوق تنمية الموارد البشرية</span><span class="en">Doroob – Human Resources Development Fund</span></small></span><span class="y"><span class="ar">٢٠١٩</span><span class="en">2019</span></span></li></ul><button class="more" id="certsMore" type="button" aria-expanded="false"><span class="ar">عرض كل الشهادات (20)</span><span class="en">Show all certifications (20)</span></button></div>
     <div class="panel wide"><h3><span class="ar">الشكر والتقدير</span><span class="en">Awards &amp; Appreciation</span></h3><ul class="certs cols"><li><span><span class="ar">شهادة شكر وتقدير</span><span class="en">Certificate of Appreciation</span><small class="org"><span class="ar">شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢٦</span><span class="en">2026</span></span></li><li><span><span class="ar">شهادة شكر وتقدير</span><span class="en">Certificate of Appreciation</span><small class="org"><span class="ar">شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢٥</span><span class="en">2025</span></span></li><li><span><span class="ar">شهادة شكر وتقدير</span><span class="en">Certificate of Appreciation</span><small class="org"><span class="ar">شركة تمويل الأولى</span><span class="en">Tamweel Aloula Company</span></small></span><span class="y"><span class="ar">٢٠٢٣</span><span class="en">2023</span></span></li><li><span><span class="ar">شهادة شكر وتقدير</span><span class="en">Certificate of Appreciation</span><small class="org"><span class="ar">شركة رافعات الخليج للإيجار التمويلي</span><span class="en">Gulf Lifting Financial Leasing Co.</span></small></span><span class="y"><span class="ar">٢٠٢١</span><span class="en">2021</span></span></li></ul></div>
     <div class="chips"><span class="chip"><span class="ar">إدارة الائتمان (العمليات)</span><span class="en">Credit Administration (Operations)</span></span><span class="chip"><span class="ar">تمويل الشركات</span><span class="en">Corporate Financing</span></span><span class="chip"><span class="ar">تمويل الأفراد</span><span class="en">Individual Financing</span></span><span class="chip"><span class="ar">التمويل الإسلامي</span><span class="en">Islamic Finance</span></span><span class="chip"><span class="ar">إدارة العقود</span><span class="en">Contract Management</span></span><span class="chip"><span class="ar">السندات لأمر</span><span class="en">Promissory Notes</span></span><span class="chip"><span class="ar">إدارة الأصول</span><span class="en">Asset Management</span></span><span class="chip"><span class="ar">إدارة التأمين</span><span class="en">Insurance Management</span></span><span class="chip"><span class="ar">إدارة الموردين</span><span class="en">Supplier Management</span></span><span class="chip"><span class="ar">اتفاقيات الموردين</span><span class="en">Supplier Agreements</span></span><span class="chip"><span class="ar">خدمات ما بعد البيع</span><span class="en">After-Sales Services</span></span><span class="chip"><span class="ar">تطوير العمليات</span><span class="en">Operations Development</span></span><span class="chip"><span class="ar">تطوير الأنظمة التشغيلية</span><span class="en">Operational Systems Development</span></span><span class="chip"><span class="ar">التقارير التشغيلية</span><span class="en">Operational Reporting</span></span><span class="chip"><span class="ar">الحوكمة والضوابط</span><span class="en">Governance &amp; Controls</span></span><span class="chip"><span class="ar">المتطلبات التنظيمية</span><span class="en">Regulatory Requirements</span></span><span class="chip"><span class="ar">تدريب الفرق وتطويرها</span><span class="en">Team Training &amp; Development</span></span></div>
   </section>
@@ -481,6 +570,43 @@
     } else {
       var a = document.createElement('a'); a.href = c.pdf; a.download = c.name; document.body.appendChild(a); a.click(); a.remove();
     }
+  });
+})();
+</script>
+<script>
+(function () {
+  // mobile menu
+  var head = document.querySelector('header.nav'), mb = document.getElementById('menuBtn');
+  function setMenu(open) { head.classList.toggle('open', open); mb.setAttribute('aria-expanded', open ? 'true' : 'false'); mb.textContent = open ? '✕' : '☰'; }
+  mb.addEventListener('click', function (e) { e.stopPropagation(); setMenu(!head.classList.contains('open')); });
+  document.querySelectorAll('#siteNav a').forEach(function (a) { a.addEventListener('click', function () { setMenu(false); }); });
+  document.addEventListener('click', function (e) { if (head.classList.contains('open') && !head.contains(e.target)) setMenu(false); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && head.classList.contains('open')) { setMenu(false); mb.focus(); } });
+  // expertise cards open/close on phones
+  var mq = window.matchMedia('(max-width: 860px)');
+  var cards = document.querySelectorAll('.grid .card');
+  function setupCards() {
+    cards.forEach(function (c) {
+      if (mq.matches) { c.setAttribute('role', 'button'); c.setAttribute('tabindex', '0'); c.setAttribute('aria-expanded', c.classList.contains('open') ? 'true' : 'false'); }
+      else { c.removeAttribute('role'); c.removeAttribute('tabindex'); c.removeAttribute('aria-expanded'); }
+    });
+  }
+  cards.forEach(function (c) {
+    function toggle() { if (!mq.matches) return; var o = c.classList.toggle('open'); c.setAttribute('aria-expanded', o ? 'true' : 'false'); }
+    c.addEventListener('click', toggle);
+    c.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); } });
+  });
+  setupCards();
+  if (mq.addEventListener) mq.addEventListener('change', setupCards);
+  // certificates: show all / fewer
+  var panel = document.getElementById('certsPanel'), more = document.getElementById('certsMore');
+  var LBL = { closed: ['عرض كل الشهادات (20)', 'Show all certifications (20)'], open: ['عرض أقل', 'Show fewer'] };
+  more.addEventListener('click', function () {
+    var all = panel.classList.toggle('all');
+    var t = all ? LBL.open : LBL.closed;
+    more.querySelector('.ar').textContent = t[0]; more.querySelector('.en').textContent = t[1];
+    more.setAttribute('aria-expanded', all ? 'true' : 'false');
+    if (!all) panel.scrollIntoView({ block: 'start' });
   });
 })();
 </script>
